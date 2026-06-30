@@ -49,6 +49,34 @@ export default function LaporanPage() {
     return { txs, days }
   }, [history, range, kasirFilter])
 
+  // ENHANCEMENT: 4 — kasir list from all history (not filtered)
+  const kasirList = [...new Set(history.map((t) => t.kasirName))]
+
+  // ENHANCEMENT: 6 — enhanced CSV export
+  const exportCSV = () => {
+    const headers = ['ID', 'Tanggal', 'Kasir', 'Items', 'Subtotal', 'PPN', 'Diskon', 'Total', 'Metode', 'Pelanggan']
+    const rows = txs.map((t) => [
+      t.id,
+      new Date(t.createdAt).toLocaleString('id-ID'),
+      t.kasirName,
+      t.items.map((i) => `${i.name}x${i.qty}`).join('; '),
+      t.subtotal,
+      t.ppnAmount,
+      t.discount,
+      t.total,
+      t.metode,
+      t.customerId ?? '-',
+    ])
+    const csv = [headers, ...rows].map((r) => r.map((v) => `"${v}"`).join(',')).join('\n')
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `laporan-${range}-${new Date().toISOString().slice(0, 10)}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   const omzet = txs.reduce((s, t) => s + t.total, 0)
   const transaksi = txs.length
   const avgBasket = transaksi > 0 ? omzet / transaksi : 0
