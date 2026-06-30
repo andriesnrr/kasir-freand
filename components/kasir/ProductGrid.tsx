@@ -18,7 +18,9 @@ export default function ProductGrid() {
   const filtered = useMemo(() => {
     return products.filter((p) => {
       if (!p.isActive) return false
-      const matchSearch = p.name.toLowerCase().includes(search.toLowerCase())
+      // ENHANCEMENT: 2 — barcode search
+      const matchSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
+        (p.barcode && p.barcode.includes(search))
       const matchCat = category === 'Semua' || p.category === category
       return matchSearch && matchCat
     })
