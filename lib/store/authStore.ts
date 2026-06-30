@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { nanoid } from 'nanoid'
 import type { User, Shift } from '../types'
+import { useShiftStore } from './shiftStore'
 
 interface AuthState {
   currentUser: User | null
