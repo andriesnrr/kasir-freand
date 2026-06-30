@@ -1,6 +1,7 @@
 'use client'
 import type { Transaction } from '@/lib/types'
 import { useSettingStore } from '@/lib/store/settingStore'
+import { useCustomerStore } from '@/lib/store/customerStore'
 import { formatRupiah, formatTanggal } from '@/lib/utils'
 import { useState, useEffect } from 'react'
 
