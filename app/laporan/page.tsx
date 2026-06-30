@@ -17,6 +17,7 @@ export default function LaporanPage() {
   const history = useTxStore((s) => s.history)
   const products = useProductStore((s) => s.products)
   const [range, setRange] = useState<Range>('7d')
+  const [kasirFilter, setKasirFilter] = useState('Semua') // ENHANCEMENT: 4
 
   useEffect(() => {
     if (!isLoggedIn) router.push('/login')
