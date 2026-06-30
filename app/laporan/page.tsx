@@ -118,6 +118,19 @@ export default function LaporanPage() {
           ))}
         </div>
 
+        {/* ENHANCEMENT: 4 — kasir filter chips (owner only, when multiple kasir) */}
+        {currentUser?.role === 'owner' && kasirList.length > 1 && (
+          <div className="flex gap-2 overflow-x-auto pb-2 mb-4 scrollbar-hide">
+            {['Semua', ...kasirList].map((k) => (
+              <button key={k} onClick={() => setKasirFilter(k)}
+                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-label font-medium transition-all ${
+                  kasirFilter === k ? 'active-category' : 'bg-surface-container text-on-surface-variant'
+                }`}
+              >{k}</button>
+            ))}
+          </div>
+        )}
+
         {/* Summary grid */}
         <div className="grid grid-cols-2 gap-3 mb-4">
           {[
