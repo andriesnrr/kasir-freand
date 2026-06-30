@@ -14,6 +14,7 @@ export default function KasirPage() {
   const router = useRouter()
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn)
   const user = useAuthStore((s) => s.currentUser)
+  const userRole = useAuthStore((s) => s.currentUser?.role) // scalar for effect dep
   const openShift = useAuthStore((s) => s.openShift)
   const currentShift = useAuthStore((s) => s.currentShift)
 
