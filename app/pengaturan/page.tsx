@@ -126,6 +126,39 @@ export default function PengaturanPage() {
           </div>
         </Section>
 
+        {/* ENHANCEMENT: 5 — custom categories (owner only) */}
+        {currentUser?.role === 'owner' && (
+          <Section id="kategori" icon="🏷️" title="Kategori Produk" expanded={expanded === 'kategori'} onToggle={() => toggle('kategori')}>
+            <div className="flex flex-col gap-2">
+              {settings.categories.map((cat) => (
+                <div key={cat} className="flex items-center justify-between p-2 bg-surface-container rounded-xl">
+                  <span className="text-body-md text-on-surface">{cat}</span>
+                  <button
+                    onClick={() => settings.updateCategories(settings.categories.filter((c) => c !== cat))}
+                    className="text-error text-label px-2 py-1 bg-error-container/20 rounded-lg"
+                  >Hapus</button>
+                </div>
+              ))}
+              <div className="flex gap-2 mt-1">
+                <input
+                  ref={newCatRef}
+                  placeholder="Kategori baru..."
+                  className="flex-1 bg-surface-container-high rounded-xl px-3 py-2 text-body-md text-on-surface border border-outline-variant/50 focus:border-primary focus:outline-none"
+                />
+                <button
+                  onClick={() => {
+                    const val = newCatRef.current?.value.trim()
+                    if (!val || settings.categories.includes(val)) return
+                    settings.updateCategories([...settings.categories, val])
+                    if (newCatRef.current) newCatRef.current.value = ''
+                  }}
+                  className="px-4 py-2 rounded-xl bg-primary text-on-primary text-label font-medium"
+                >Tambah</button>
+              </div>
+            </div>
+          </Section>
+        )}
+
         {currentUser?.role === 'owner' && (
           <Section id="users" icon="👥" title="Kasir & User" expanded={expanded === 'users'} onToggle={() => toggle('users')}>
             <div className="flex flex-col gap-2">
