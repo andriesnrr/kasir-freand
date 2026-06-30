@@ -30,10 +30,10 @@ export default function KasirPage() {
 
   useEffect(() => {
     if (isLoggedIn && !currentShift) {
-      if (user?.role === 'owner') setKasAwalOpen(true) // POLISH: 4
+      if (userRole === 'owner') setKasAwalOpen(true) // POLISH: 4
       else openShift(0)
     }
-  }, [isLoggedIn, currentShift, openShift, user])
+  }, [isLoggedIn, currentShift, openShift, userRole])
 
   if (!isLoggedIn || !user) return null
 
