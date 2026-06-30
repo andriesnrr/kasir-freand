@@ -88,6 +88,7 @@ export interface TxItem {
   name: string
   price: number
   qty: number
+  emoji?: string // FIXED: BUG 8
   ppnRate: number
   ppnAmount: number
   itemDiscount: number
