@@ -13,6 +13,7 @@ type Range = '7d' | '30d' | 'today'
 export default function LaporanPage() {
   const router = useRouter()
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn)
+  const currentUser = useAuthStore((s) => s.currentUser)
   const history = useTxStore((s) => s.history)
   const products = useProductStore((s) => s.products)
   const [range, setRange] = useState<Range>('7d')
