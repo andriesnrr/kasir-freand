@@ -38,6 +38,7 @@ export default function PengaturanPage() {
   const saveShift = useShiftStore((s) => s.saveShift)
   const settings = useSettingStore()
   const [expanded, setExpanded] = useState<string | null>('toko')
+  const newCatRef = useRef<HTMLInputElement>(null) // ENHANCEMENT: 5
 
   useEffect(() => {
     if (!isLoggedIn) router.push('/login')
