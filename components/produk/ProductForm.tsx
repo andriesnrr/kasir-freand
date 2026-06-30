@@ -22,6 +22,7 @@ export default function ProductForm({ open, onClose, product }: ProductFormProps
 
   const nameRef = useRef<HTMLInputElement>(null)
   const priceRef = useRef<HTMLInputElement>(null)
+  const memberPriceRef = useRef<HTMLInputElement>(null) // ENHANCEMENT: 1
   const stockRef = useRef<HTMLInputElement>(null)
   const thresholdRef = useRef<HTMLInputElement>(null)
   const satuanRef = useRef<HTMLInputElement>(null)
