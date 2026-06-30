@@ -33,6 +33,9 @@ export default function PengaturanPage() {
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn)
   const currentUser = useAuthStore((s) => s.currentUser)
   const logout = useAuthStore((s) => s.logout)
+  const currentShift = useAuthStore((s) => s.currentShift)
+  const closeShift = useAuthStore((s) => s.closeShift)
+  const saveShift = useShiftStore((s) => s.saveShift)
   const settings = useSettingStore()
   const [expanded, setExpanded] = useState<string | null>('toko')
 
