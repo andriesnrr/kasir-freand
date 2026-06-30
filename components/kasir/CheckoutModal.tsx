@@ -131,6 +131,9 @@ export default function CheckoutModal({ open, onClose, onSuccess }: CheckoutModa
       })
     }
 
+    // FIXED: BUG 7 — update shift stats
+    useAuthStore.getState().updateShiftStats(total)
+
     clearCart()
     toast.success('Transaksi berhasil!')
     onSuccess(tx)
