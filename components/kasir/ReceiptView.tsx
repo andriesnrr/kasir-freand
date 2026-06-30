@@ -12,6 +12,8 @@ interface ReceiptViewProps {
 
 export default function ReceiptView({ tx, onNew }: ReceiptViewProps) {
   const settings = useSettingStore()
+  const customers = useCustomerStore((s) => s.customers) // POLISH: 3
+  const customer = tx.customerId ? customers.find((c) => c.id === tx.customerId) : null
   const [confetti, setConfetti] = useState(true)
 
   useEffect(() => {
