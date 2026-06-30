@@ -70,6 +70,29 @@ export default function KasirPage() {
       />
 
       <BottomNav />
+
+      {/* POLISH: 4 — kas awal modal for owner */}
+      {kasAwalOpen && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60">
+          <div className="w-full max-w-[480px] bg-surface-container rounded-t-3xl p-6 flex flex-col gap-4">
+            <p className="font-display text-title gradient-text">Buka Shift</p>
+            <p className="text-body-md text-on-surface-variant">Masukkan jumlah kas awal</p>
+            <input
+              type="number"
+              placeholder="0"
+              value={kasAwalInput}
+              onChange={(e) => setKasAwalInput(e.target.value)}
+              className="w-full bg-surface-container-high rounded-xl px-4 py-3 text-body-md text-on-surface border border-outline-variant/50 focus:border-primary focus:outline-none"
+            />
+            <button
+              onClick={() => { openShift(Number(kasAwalInput) || 0); setKasAwalOpen(false) }}
+              className="w-full py-4 rounded-2xl gradient-btn text-on-primary font-semibold text-body-md"
+            >
+              Buka Shift
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
