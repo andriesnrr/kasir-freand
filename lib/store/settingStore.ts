@@ -41,6 +41,8 @@ export const useSettingStore = create<SettingState>()(
       updateLoyalty: (data) => set((s) => ({ loyalty: { ...s.loyalty, ...data } })),
       updateNotif: (data) => set((s) => ({ notif: { ...s.notif, ...data } })),
 
+      updateCategories: (cats) => set({ categories: cats }),
+
       addUser: (data) =>
         set((s) => ({ users: [...s.users, { ...data, id: nanoid() }] })),
       updateUser: (id, data) =>
