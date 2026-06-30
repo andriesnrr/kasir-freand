@@ -107,7 +107,7 @@ export default function CheckoutModal({ open, onClose, onSuccess }: CheckoutModa
       isVoid: false,
     })
 
-    // Decrement stock (handle bundles specially)
+    // FIXED: BUG 4 — bundle decrement iterates component products, not bundle ID
     items.forEach((i) => {
       if (i.productId.startsWith('bundle-')) {
         const bundleId = i.productId.replace('bundle-', '')
