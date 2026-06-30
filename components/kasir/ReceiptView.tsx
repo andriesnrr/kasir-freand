@@ -122,9 +122,20 @@ ${settings.struk.footer}`
               <span>Kembalian</span><span>{formatRupiah(tx.kembalian)}</span>
             </div>
           )}
+          {/* POLISH: 3 — customer name & loyalty info */}
+          {customer && (
+            <div className="flex justify-between text-on-surface-variant text-label mt-2">
+              <span>Pelanggan</span><span>{customer.name}</span>
+            </div>
+          )}
           {tx.poinDidapat > 0 && (
-            <div className="flex justify-between text-primary text-label mt-2">
+            <div className="flex justify-between text-primary text-label mt-1">
               <span>Poin didapat</span><span>+{tx.poinDidapat}</span>
+            </div>
+          )}
+          {tx.poinDipakai > 0 && (
+            <div className="flex justify-between text-secondary text-label mt-1">
+              <span>Poin dipakai</span><span>-{tx.poinDipakai}</span>
             </div>
           )}
           <div className="border-t border-dashed border-outline-variant mt-3 pt-3 text-center">
