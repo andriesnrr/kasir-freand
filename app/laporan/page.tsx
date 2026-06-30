@@ -47,7 +47,7 @@ export default function LaporanPage() {
     })
     const days = Object.entries(dayMap).map(([date, omzet]) => ({ date, omzet }))
     return { txs, days }
-  }, [history, range])
+  }, [history, range, kasirFilter])
 
   const omzet = txs.reduce((s, t) => s + t.total, 0)
   const transaksi = txs.length
