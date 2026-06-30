@@ -20,14 +20,19 @@ export default function KasirPage() {
   const [cartOpen, setCartOpen] = useState(false)
   const [checkoutOpen, setCheckoutOpen] = useState(false)
   const [receipt, setReceipt] = useState<Transaction | null>(null)
+  const [kasAwalOpen, setKasAwalOpen] = useState(false) // POLISH: 4
+  const [kasAwalInput, setKasAwalInput] = useState('')
 
   useEffect(() => {
     if (!isLoggedIn) router.push('/login')
   }, [isLoggedIn, router])
 
   useEffect(() => {
-    if (isLoggedIn && !currentShift) openShift(0)
-  }, [isLoggedIn, currentShift, openShift])
+    if (isLoggedIn && !currentShift) {
+      if (user?.role === 'owner') setKasAwalOpen(true) // POLISH: 4
+      else openShift(0)
+    }
+  }, [isLoggedIn, currentShift, openShift, user])
 
   if (!isLoggedIn || !user) return null
 
