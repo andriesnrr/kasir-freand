@@ -97,6 +97,14 @@ export const useProductStore = create<ProductState>()(
         })
       },
     }),
-    { name: 'kasir-products' }
+    {
+      name: 'kasir-products',
+      // FIXED: BUG 3 — explicit partialize ensures stockLogs is persisted
+      partialize: (state) => ({
+        products: state.products,
+        bundles: state.bundles,
+        stockLogs: state.stockLogs,
+      }),
+    }
   )
 )
