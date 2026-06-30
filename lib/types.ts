@@ -118,6 +118,7 @@ export interface Transaction {
   note?: string
   isVoid: boolean
   voidReason?: string
+  voidBy?: string
   createdAt: string
 }
 
