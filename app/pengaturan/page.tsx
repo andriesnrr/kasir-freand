@@ -9,7 +9,7 @@ import Input from '@/components/ui/Input'
 import { toast } from 'sonner'
 
 function Section({
-  id, icon, title, children, expanded, onToggle,
+  id: _id, icon, title, children, expanded, onToggle,
 }: {
   id: string; icon: string; title: string; children: React.ReactNode
   expanded: boolean; onToggle: () => void
