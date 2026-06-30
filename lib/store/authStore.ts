@@ -13,6 +13,7 @@ interface AuthState {
   logout: () => void
   openShift: (kasAwal: number) => void
   closeShift: () => void
+  updateShiftStats: (omzet: number) => void
 }
 
 export const useAuthStore = create<AuthState>()(
