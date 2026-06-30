@@ -50,7 +50,7 @@ export default function LaporanPage() {
   }, [history, range, kasirFilter])
 
   // ENHANCEMENT: 4 — kasir list from all history (not filtered)
-  const kasirList = [...new Set(history.map((t) => t.kasirName))]
+  const kasirList = Array.from(new Set(history.map((t) => t.kasirName)))
 
   // ENHANCEMENT: 6 — enhanced CSV export
   const exportCSV = () => {
