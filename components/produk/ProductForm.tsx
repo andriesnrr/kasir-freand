@@ -48,7 +48,7 @@ export default function ProductForm({ open, onClose, product }: ProductFormProps
       updateProduct(product.id, data)
       toast.success('Produk diperbarui')
     } else {
-      addProduct({ ...data, memberPrice: undefined, image: undefined, variants: [] })
+      addProduct({ ...data, image: undefined, variants: [] })
       toast.success('Produk ditambahkan')
     }
     onClose()
