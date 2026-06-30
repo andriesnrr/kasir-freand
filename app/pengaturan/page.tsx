@@ -9,6 +9,7 @@ import Input from '@/components/ui/Input'
 import { toast } from 'sonner'
 
 function Section({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   id: _id, icon, title, children, expanded, onToggle,
 }: {
   id: string; icon: string; title: string; children: React.ReactNode
