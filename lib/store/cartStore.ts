@@ -43,12 +43,14 @@ export const useCartStore = create<CartState>()((set, get) => ({
 
   addItem: (product, variantId) => {
     const variant = variantId ? product.variants.find((v) => v.id === variantId) : undefined
-    const price = variant ? variant.priceOverride : product.price
-    const name = variant ? `${product.name} (${variant.name})` : product.name
     const settings = useSettingStore.getState()
     const ppnRate = product.ppn === 'none' ? 0 : product.ppn === 'default' ? (settings.ppn.enabled ? settings.ppn.rate : 0) : (product.ppn as number)
+    const name = variant ? `${product.name} (${variant.name})` : product.name
 
     set((s) => {
+      // FIXED: BUG 5 — use memberPrice when customer is selected
+      const basePrice = variant ? variant.priceOverride : product.price
+      const price = s.customerId && !variant && product.memberPrice ? product.memberPrice : basePrice
       const key = productKey(product.id, variantId)
       const existing = s.items.find((i) => productKey(i.productId, i.variantId) === key)
       if (existing) {
