@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { generateTxId } from '../utils'
 import type { Transaction } from '../types'
+import { useProductStore } from './productStore'
 
 interface TxState {
   history: Transaction[]
