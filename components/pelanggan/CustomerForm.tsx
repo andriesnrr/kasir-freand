@@ -53,7 +53,10 @@ export default function CustomerForm({ open, onClose, customer }: CustomerFormPr
         <Input label="Catatan" {...register('note')} placeholder="Catatan pelanggan" />
         <Button type="submit" className="w-full">Simpan</Button>
         {customer && (
-          <Button type="button" variant="danger" className="w-full" onClick={() => { deleteCustomer(customer.id); toast.success('Pelanggan dihapus'); onClose() }}>
+          <Button type="button" variant="danger" className="w-full" onClick={() => {
+            if (!confirm(`Hapus pelanggan "${customer.name}"? Data tidak bisa dikembalikan.`)) return // POLISH: 2
+            deleteCustomer(customer.id); toast.success('Pelanggan dihapus'); onClose()
+          }}>
             Hapus Pelanggan
           </Button>
         )}
