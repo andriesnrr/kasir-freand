@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { nanoid } from 'nanoid'
 import type { User } from '../types'
-import { SEED_USERS, SEED_SETTINGS } from '../constants'
+import { SEED_USERS, SEED_SETTINGS, CATEGORIES } from '../constants'
 
 interface SettingState {
   toko: { nama: string; alamat: string; phone: string; npwp?: string }
