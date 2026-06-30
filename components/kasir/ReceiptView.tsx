@@ -33,7 +33,9 @@ Subtotal: ${formatRupiah(tx.subtotal)}
 ${tx.ppnAmount > 0 ? `PPN: ${formatRupiah(tx.ppnAmount)}\n` : ''}${tx.discount > 0 ? `Diskon: -${formatRupiah(tx.discount)}\n` : ''}Total: ${formatRupiah(tx.total)}
 Bayar: ${formatRupiah(tx.bayar)}
 Kembalian: ${formatRupiah(tx.kembalian)}
-
+${customer ? `Pelanggan: ${customer.name}` : ''}
+${tx.poinDidapat > 0 ? `Poin didapat: +${tx.poinDidapat}` : ''}
+${tx.poinDipakai > 0 ? `Poin dipakai: -${tx.poinDipakai}` : ''}
 ${settings.struk.footer}`
 
   const handleWhatsApp = () => {
