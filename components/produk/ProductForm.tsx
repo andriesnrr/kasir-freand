@@ -78,6 +78,8 @@ export default function ProductForm({ open, onClose, product }: ProductFormProps
 
         <Input ref={nameRef} label="Nama Produk" defaultValue={product?.name} placeholder="Nama produk" />
         <Input ref={priceRef} label="Harga" type="number" defaultValue={product?.price} placeholder="0" />
+        {/* ENHANCEMENT: 1 — memberPrice field */}
+        <Input ref={memberPriceRef} label="Harga Member (opsional)" type="number" defaultValue={product?.memberPrice ?? ''} placeholder="Kosongkan jika sama dengan harga normal" />
         <Input ref={stockRef} label="Stok" type="number" defaultValue={product?.stock} placeholder="0" />
         <Input ref={thresholdRef} label="Threshold Stok Rendah" type="number" defaultValue={product?.lowStockThreshold ?? 5} placeholder="5" />
         <Input ref={satuanRef} label="Satuan" defaultValue={product?.satuan ?? 'pcs'} placeholder="pcs / porsi / gelas" />
