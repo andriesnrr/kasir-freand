@@ -36,6 +36,7 @@ export default function ProductForm({ open, onClose, product }: ProductFormProps
     const data = {
       name,
       price: Number(priceRef.current?.value ?? 0),
+      memberPrice: memberPriceRef.current?.value ? Number(memberPriceRef.current.value) : undefined, // ENHANCEMENT: 1
       stock: Number(stockRef.current?.value ?? 0),
       lowStockThreshold: Number(thresholdRef.current?.value ?? 5),
       satuan: satuanRef.current?.value ?? 'pcs',
