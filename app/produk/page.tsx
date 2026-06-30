@@ -7,6 +7,8 @@ import BottomNav from '@/components/layout/BottomNav'
 import ProductList from '@/components/produk/ProductList'
 import StokOpname from '@/components/produk/StokOpname'
 import ProductForm from '@/components/produk/ProductForm'
+import BundleForm from '@/components/produk/BundleForm'
+import type { Bundle } from '@/lib/types'
 
 type Tab = 'produk' | 'bundle' | 'opname'
 
@@ -15,8 +17,11 @@ export default function ProdukPage() {
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn)
   const products = useProductStore((s) => s.products)
   const lowStock = useMemo(() => products.filter((p) => p.stock > 0 && p.stock <= p.lowStockThreshold && p.isActive), [products])
+  const bundles = useProductStore((s) => s.bundles)
   const [tab, setTab] = useState<Tab>('produk')
   const [addOpen, setAddOpen] = useState(false)
+  const [addBundleOpen, setAddBundleOpen] = useState(false)
+  const [editBundle, setEditBundle] = useState<Bundle | null>(null)
 
   useEffect(() => {
     if (!isLoggedIn) router.push('/login')
@@ -29,7 +34,7 @@ export default function ProdukPage() {
       <div className="sticky top-0 z-20 px-4 pt-4 pb-3" style={{ background: 'rgba(15,15,19,0.9)', backdropFilter: 'blur(12px)' }}>
         <div className="flex items-center justify-between">
           <span className="font-display text-title gradient-text">Produk</span>
-          <button onClick={() => setAddOpen(true)} className="gradient-btn text-on-primary w-9 h-9 rounded-xl flex items-center justify-center">
+          <button onClick={() => tab === 'bundle' ? setAddBundleOpen(true) : setAddOpen(true)} className="gradient-btn text-on-primary w-9 h-9 rounded-xl flex items-center justify-center">
             <span className="material-symbols-outlined text-[20px]">add</span>
           </button>
         </div>
@@ -69,22 +74,47 @@ export default function ProdukPage() {
 
         {/* Tabs */}
         <div className="flex gap-1 bg-surface-container rounded-xl p-1 mb-4">
-          {(['produk', 'opname'] as Tab[]).map((t) => (
+          {(['produk', 'bundle', 'opname'] as Tab[]).map((t) => (
             <button key={t} onClick={() => setTab(t)}
               className={`flex-1 py-2 rounded-lg text-label font-medium capitalize transition-all ${
                 tab === t ? 'bg-primary text-on-primary' : 'text-on-surface-variant'
               }`}
             >
-              {t === 'opname' ? 'Stok Opname' : 'Produk'}
+              {t === 'opname' ? 'Opname' : t === 'bundle' ? 'Bundle' : 'Produk'}
             </button>
           ))}
         </div>
 
         {tab === 'produk' && <ProductList />}
         {tab === 'opname' && <StokOpname />}
+        {tab === 'bundle' && (
+          <div className="flex flex-col gap-2">
+            {bundles.length === 0 ? (
+              <div className="flex flex-col items-center py-16">
+                <span className="material-symbols-outlined text-[48px] text-outline mb-3">card_giftcard</span>
+                <p className="text-headline text-on-surface">Belum ada bundle</p>
+              </div>
+            ) : bundles.map((b) => (
+              <button key={b.id} onClick={() => setEditBundle(b)} className="glass-card p-4 text-left flex items-center gap-3 hover:border-white/20 transition-all">
+                <span className="text-3xl">{b.emoji}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-body-md font-semibold text-on-surface">{b.name}</p>
+                  <p className="text-label text-on-surface-variant truncate">{b.description}</p>
+                  <p className="text-label text-secondary font-bold mt-1">{b.items.length} produk</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-body-md gradient-text font-bold">Rp {b.price.toLocaleString('id-ID')}</p>
+                  {!b.isActive && <span className="text-[10px] text-error">Nonaktif</span>}
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <ProductForm open={addOpen} onClose={() => setAddOpen(false)} />
+      <BundleForm open={addBundleOpen} onClose={() => setAddBundleOpen(false)} />
+      {editBundle && <BundleForm open={true} onClose={() => setEditBundle(null)} bundle={editBundle} />}
       <BottomNav />
     </div>
   )

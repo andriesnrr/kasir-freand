@@ -192,6 +192,38 @@ export default function LaporanPage() {
         )}
       </div>
 
+        {/* Export */}
+        <div className="glass-card p-4 mb-4">
+          <p className="text-body-md font-semibold text-on-surface mb-3">Export Data</p>
+          <button
+            onClick={() => {
+              const rows = [
+                ['ID', 'Tanggal', 'Kasir', 'Total', 'Metode', 'Item'],
+                ...txs.map((t) => [
+                  t.id,
+                  new Date(t.createdAt).toLocaleString('id-ID'),
+                  t.kasirName,
+                  t.total,
+                  t.metode,
+                  t.items.map((i) => `${i.name}×${i.qty}`).join('; '),
+                ]),
+              ]
+              const csv = rows.map((r) => r.map((v) => `"${v}"`).join(',')).join('\n')
+              const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+              const url = URL.createObjectURL(blob)
+              const a = document.createElement('a')
+              a.href = url
+              a.download = `laporan-${range}-${new Date().toISOString().slice(0,10)}.csv`
+              a.click()
+              URL.revokeObjectURL(url)
+            }}
+            className="w-full py-3 rounded-xl border border-secondary/30 text-secondary text-body-md font-medium flex items-center justify-center gap-2"
+          >
+            <span className="material-symbols-outlined text-[20px]">download</span>
+            Export CSV
+          </button>
+        </div>
+
       <BottomNav />
     </div>
   )
