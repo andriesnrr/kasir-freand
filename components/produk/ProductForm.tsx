@@ -17,6 +17,7 @@ interface ProductFormProps {
 
 export default function ProductForm({ open, onClose, product }: ProductFormProps) {
   const { addProduct, updateProduct, deleteProduct } = useProductStore()
+  const categories = useSettingStore((s) => s.categories) // ENHANCEMENT: 5
   const [emoji, setEmoji] = useState(product?.emoji ?? '🍔')
   const [ppn, setPpn] = useState<string>(String(product?.ppn ?? 'none'))
   const [isActive, setIsActive] = useState(product?.isActive ?? true)
