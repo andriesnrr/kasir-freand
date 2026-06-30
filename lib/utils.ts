@@ -52,3 +52,14 @@ export function hitungRedeemValue(poin: number, poinPerRp: number): number {
 export function getInitials(name: string): string {
   return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
 }
+
+// ENHANCEMENT: 3
+export function timeAgo(isoString: string): string {
+  const diff = Date.now() - new Date(isoString).getTime()
+  const mins = Math.floor(diff / 60000)
+  if (mins < 1) return 'Baru saja'
+  if (mins < 60) return `${mins} menit lalu`
+  const hrs = Math.floor(mins / 60)
+  if (hrs < 24) return `${hrs} jam lalu`
+  return `${Math.floor(hrs / 24)} hari lalu`
+}
