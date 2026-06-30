@@ -127,7 +127,7 @@ export default function CartSheet({ open, onClose, onCheckout }: CartSheetProps)
               <div key={h.id} className="glass-card p-3 mb-2 flex items-center justify-between">
                 <div>
                   <p className="text-body-md text-on-surface">{h.items.length} item</p>
-                  <p className="text-label text-on-surface-variant">{new Date(h.createdAt).toLocaleTimeString('id-ID')}</p>
+                  <p className="text-label text-outline">{timeAgo(h.createdAt)}</p> {/* ENHANCEMENT: 3 */}
                 </div>
                 <div className="flex gap-2">
                   <button onClick={() => { restoreHold(h.id); onClose() }} className="text-label text-primary bg-primary/10 px-2 py-1 rounded-lg">Pulihkan</button>
