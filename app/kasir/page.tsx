@@ -48,7 +48,9 @@ export default function KasirPage() {
         <div className="flex items-center justify-between">
           <span className="font-display text-title gradient-text">Kasir Freand</span>
           <div className="flex items-center gap-2">
-            <span className="text-label px-2 py-0.5 rounded-full bg-secondary/20 text-secondary">Shift aktif</span>
+            <span className={`text-label px-2 py-0.5 rounded-full ${currentShift?.closeTime ? 'bg-error/20 text-error' : 'bg-secondary/20 text-secondary'}`}>
+              {currentShift?.closeTime ? 'Shift tutup' : 'Shift aktif'}
+            </span>
             <span className="text-label text-on-surface-variant">{user.name}</span>
           </div>
         </div>
