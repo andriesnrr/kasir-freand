@@ -90,7 +90,7 @@ export default function ProductForm({ open, onClose, product }: ProductFormProps
         <div>
           <p className="text-label text-on-surface-variant mb-1">Kategori</p>
           <select ref={categoryRef} defaultValue={product?.category ?? 'Makanan'} className="w-full bg-surface-container-high rounded-xl px-4 py-3 text-body-md text-on-surface border border-outline-variant/50 focus:border-primary focus:outline-none">
-            {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+            {categories.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
 
