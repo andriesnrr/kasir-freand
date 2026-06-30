@@ -24,7 +24,17 @@ export const useAuthStore = create<AuthState>()(
 
       login: (user) => set({ currentUser: user, isLoggedIn: true }),
 
-      logout: () => set({ currentUser: null, currentShift: null, isLoggedIn: false }),
+      logout: () => {
+        // FIXED: BUG 2 — close and save shift before logout
+        const { currentShift } = get()
+        if (currentShift && !currentShift.closeTime) {
+          const closedShift = { ...currentShift, closeTime: new Date().toISOString() }
+          useShiftStore.getState().saveShift(closedShift)
+        } else if (currentShift) {
+          useShiftStore.getState().saveShift(currentShift)
+        }
+        set({ currentUser: null, currentShift: null, isLoggedIn: false })
+      },
 
       openShift: (kasAwal) => {
         const user = get().currentUser
