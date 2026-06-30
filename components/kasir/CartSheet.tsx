@@ -4,7 +4,7 @@ import Modal from '@/components/ui/Modal'
 import CartItemComponent from './CartItem'
 import { useCartStore } from '@/lib/store/cartStore'
 import { useSettingStore } from '@/lib/store/settingStore'
-import { formatRupiah } from '@/lib/utils'
+import { formatRupiah, timeAgo } from '@/lib/utils'
 import type { DiscountType } from '@/lib/types'
 
 interface CartSheetProps {
