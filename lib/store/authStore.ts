@@ -60,6 +60,15 @@ export const useAuthStore = create<AuthState>()(
             : null,
         }))
       },
+
+      // FIXED: BUG 7 — update shift omzet & transaksi count after each checkout
+      updateShiftStats: (omzet) => set((s) => ({
+        currentShift: s.currentShift ? {
+          ...s.currentShift,
+          totalOmzet: s.currentShift.totalOmzet + omzet,
+          totalTransaksi: s.currentShift.totalTransaksi + 1,
+        } : null
+      })),
     }),
     { name: 'kasir-auth' }
   )
