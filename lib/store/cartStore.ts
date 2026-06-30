@@ -80,7 +80,18 @@ export const useCartStore = create<CartState>()((set, get) => ({
 
   setGlobalDiscount: (amount, type) => set({ globalDiscount: amount, discountType: type }),
 
-  setCustomer: (customerId) => set({ customerId, poinRedeem: 0 }),
+  setCustomer: (customerId) => set((s) => {
+    // FIXED: BUG 5 — re-price items when customer toggled
+    const products = useProductStore.getState().products
+    const items = s.items.map((item) => {
+      if (item.variantId) return item
+      const product = products.find((p) => p.id === item.productId)
+      if (!product) return item
+      if (customerId && product.memberPrice) return { ...item, price: product.memberPrice }
+      return { ...item, price: product.price }
+    })
+    return { customerId, poinRedeem: 0, items }
+  }),
 
   setPoinRedeem: (poin) => set({ poinRedeem: poin }),
 
