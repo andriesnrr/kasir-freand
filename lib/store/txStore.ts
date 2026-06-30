@@ -24,10 +24,24 @@ export const useTxStore = create<TxState>()(
         return newTx
       },
 
-      voidTransaction: (id, reason) => {
+      voidTransaction: (id, reason, voidBy) => {
+        // FIXED: BUG 1 — restore stock for each item when voiding
+        const tx = get().history.find((t) => t.id === id)
+        if (tx && !tx.isVoid) {
+          const { restoreStock, bundles } = useProductStore.getState()
+          tx.items.forEach((item) => {
+            if (item.productId.startsWith('bundle-')) {
+              const bundleId = item.productId.replace('bundle-', '')
+              const bundle = bundles.find((b) => b.id === bundleId)
+              if (bundle) bundle.items.forEach((bi) => restoreStock(bi.productId, bi.qty * item.qty))
+            } else {
+              restoreStock(item.productId, item.qty)
+            }
+          })
+        }
         set((s) => ({
           history: s.history.map((t) =>
-            t.id === id ? { ...t, isVoid: true, voidReason: reason } : t
+            t.id === id ? { ...t, isVoid: true, voidReason: reason, voidBy } : t
           ),
         }))
       },
