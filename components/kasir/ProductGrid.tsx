@@ -9,10 +9,11 @@ import Input from '@/components/ui/Input'
 export default function ProductGrid() {
   const products = useProductStore((s) => s.products)
   const bundles = useProductStore((s) => s.bundles)
+  const categories = useSettingStore((s) => s.categories) // ENHANCEMENT: 5
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('Semua')
 
-  const allCategories = ['Semua', ...CATEGORIES]
+  const allCategories = ['Semua', ...categories]
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
