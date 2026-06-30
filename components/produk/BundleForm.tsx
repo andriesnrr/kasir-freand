@@ -16,7 +16,8 @@ interface BundleFormProps {
 }
 
 export default function BundleForm({ open, onClose, bundle }: BundleFormProps) {
-  const products = useProductStore((s) => s.products.filter((p) => p.isActive))
+  const allProducts = useProductStore((s) => s.products)
+  const products = useMemo(() => allProducts.filter((p) => p.isActive), [allProducts])
   const { addBundle, updateBundle, deleteBundle } = useProductStore()
 
   const [emoji, setEmoji] = useState(bundle?.emoji ?? '🎁')
