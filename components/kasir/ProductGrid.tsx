@@ -3,7 +3,7 @@ import { useState, useMemo } from 'react'
 import { useProductStore } from '@/lib/store/productStore'
 import ProductCard from './ProductCard'
 import BundleCard from './BundleCard'
-import { CATEGORIES } from '@/lib/constants'
+import { useSettingStore } from '@/lib/store/settingStore' // ENHANCEMENT: 5
 import Input from '@/components/ui/Input'
 
 export default function ProductGrid() {
