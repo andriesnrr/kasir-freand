@@ -79,6 +79,7 @@ export default function CheckoutModal({ open, onClose, onSuccess }: CheckoutModa
         name: i.name,
         price: i.price,
         qty: i.qty,
+        emoji: i.emoji, // FIXED: BUG 8
         ppnRate: i.ppnRate,
         ppnAmount: ppnAmt,
         itemDiscount: i.itemDiscount,
