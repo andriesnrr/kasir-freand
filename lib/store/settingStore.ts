@@ -33,6 +33,7 @@ export const useSettingStore = create<SettingState>()(
       loyalty: SEED_SETTINGS.loyalty,
       notif: SEED_SETTINGS.notif,
       users: SEED_USERS,
+      categories: CATEGORIES, // ENHANCEMENT: 5
 
       updateToko: (data) => set((s) => ({ toko: { ...s.toko, ...data } })),
       updateStruk: (data) => set((s) => ({ struk: { ...s.struk, ...data } })),
