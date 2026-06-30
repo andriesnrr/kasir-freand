@@ -165,6 +165,21 @@ export default function PengaturanPage() {
           </button>
         </Section>
 
+        {/* FIXED: BUG 2 — Tutup Shift button, owner only, only when shift active */}
+        {currentUser?.role === 'owner' && currentShift && !currentShift.closeTime && (
+          <button
+            onClick={() => {
+              closeShift()
+              const closedShift = { ...currentShift, closeTime: new Date().toISOString() }
+              saveShift(closedShift)
+              toast.success('Shift ditutup')
+            }}
+            className="w-full py-4 rounded-2xl border border-primary/30 text-primary text-body-md font-semibold mt-2"
+          >
+            Tutup Shift
+          </button>
+        )}
+
         <button
           onClick={() => { logout(); router.push('/login') }}
           className="w-full py-4 rounded-2xl border border-error/30 text-error text-body-md font-semibold mt-2"
