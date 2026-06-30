@@ -142,27 +142,60 @@ export default function PengaturanPage() {
         )}
 
         <Section id="data" icon="💾" title="Data" expanded={expanded === 'data'} onToggle={() => toggle('data')}>
-          <button
-            onClick={() => {
-              const data = {
-                products: JSON.parse(localStorage.getItem('kasir-products') ?? '{}'),
-                customers: JSON.parse(localStorage.getItem('kasir-customers') ?? '{}'),
-                transactions: JSON.parse(localStorage.getItem('kasir-transactions') ?? '{}'),
-                settings: JSON.parse(localStorage.getItem('kasir-settings') ?? '{}'),
-              }
-              const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
-              const url = URL.createObjectURL(blob)
-              const a = document.createElement('a')
-              a.href = url
-              a.download = `kasir-freand-backup-${new Date().toISOString().slice(0, 10)}.json`
-              a.click()
-              URL.revokeObjectURL(url)
-              toast.success('Data berhasil diekspor')
-            }}
-            className="w-full py-3 rounded-xl border border-primary/30 text-primary text-body-md font-medium"
-          >
-            Ekspor Data JSON
-          </button>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => {
+                const data = {
+                  products: JSON.parse(localStorage.getItem('kasir-products') ?? '{}'),
+                  customers: JSON.parse(localStorage.getItem('kasir-customers') ?? '{}'),
+                  transactions: JSON.parse(localStorage.getItem('kasir-transactions') ?? '{}'),
+                  settings: JSON.parse(localStorage.getItem('kasir-settings') ?? '{}'),
+                }
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+                const url = URL.createObjectURL(blob)
+                const a = document.createElement('a')
+                a.href = url
+                a.download = `kasir-freand-backup-${new Date().toISOString().slice(0, 10)}.json`
+                a.click()
+                URL.revokeObjectURL(url)
+                toast.success('Data berhasil diekspor')
+              }}
+              className="w-full py-3 rounded-xl border border-primary/30 text-primary text-body-md font-medium"
+            >
+              Ekspor Data JSON
+            </button>
+            {/* FIXED: BUG 9 — import backup */}
+            <input
+              type="file"
+              accept=".json"
+              id="import-backup"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                if (!file) return
+                const reader = new FileReader()
+                reader.onload = (ev) => {
+                  try {
+                    const data = JSON.parse(ev.target?.result as string)
+                    if (data.products) localStorage.setItem('kasir-products', JSON.stringify(data.products))
+                    if (data.customers) localStorage.setItem('kasir-customers', JSON.stringify(data.customers))
+                    if (data.transactions) localStorage.setItem('kasir-transactions', JSON.stringify(data.transactions))
+                    if (data.settings) localStorage.setItem('kasir-settings', JSON.stringify(data.settings))
+                    toast.success('Data berhasil diimpor. Silakan refresh halaman.')
+                  } catch {
+                    toast.error('File tidak valid')
+                  }
+                }
+                reader.readAsText(file)
+              }}
+            />
+            <label
+              htmlFor="import-backup"
+              className="w-full py-3 rounded-xl border border-secondary/30 text-secondary text-body-md font-medium text-center block cursor-pointer"
+            >
+              Impor Data JSON
+            </label>
+          </div>
         </Section>
 
         {/* FIXED: BUG 2 — Tutup Shift button, owner only, only when shift active */}
