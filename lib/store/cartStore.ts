@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import { nanoid } from 'nanoid'
 import type { CartItem, HoldTransaction, Product, DiscountType } from '../types'
 import { useSettingStore } from './settingStore'
+import { useProductStore } from './productStore'
 
 interface CartState {
   items: CartItem[]
