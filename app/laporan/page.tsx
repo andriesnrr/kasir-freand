@@ -30,7 +30,9 @@ export default function LaporanPage() {
     else if (range === '7d') start.setDate(now.getDate() - 7)
     else start.setDate(now.getDate() - 30)
 
-    const txs = history.filter((t) => !t.isVoid && new Date(t.createdAt) >= start)
+    const txs = history
+      .filter((t) => !t.isVoid && new Date(t.createdAt) >= start)
+      .filter((t) => kasirFilter === 'Semua' || t.kasirName === kasirFilter) // ENHANCEMENT: 4
 
     const dayMap: Record<string, number> = {}
     const daysCount = range === 'today' ? 1 : range === '7d' ? 7 : 30
