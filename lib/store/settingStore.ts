@@ -12,6 +12,8 @@ interface SettingState {
   loyalty: { enabled: boolean; rpPerPoin: number; poinPerRp: number; minRedeem: number }
   notif: { lowStockEnabled: boolean; lowStockThreshold: number }
   users: User[]
+  categories: string[] // ENHANCEMENT: 5
+  updateCategories: (cats: string[]) => void
   updateToko: (data: Partial<SettingState['toko']>) => void
   updateStruk: (data: Partial<SettingState['struk']>) => void
   updatePpn: (data: Partial<SettingState['ppn']>) => void
